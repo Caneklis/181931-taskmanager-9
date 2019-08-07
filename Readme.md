@@ -1,7 +1,7 @@
 # Личный проект «Менеджер задач» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Лесухин](https://up.htmlacademy.ru/ecmascript/9/user/181931).
-* Наставник: `Неизвестно`.
+* Наставник: [Максим Сёмушкин](https://htmlacademy.ru/profile/syoma).
 
 ---
 
