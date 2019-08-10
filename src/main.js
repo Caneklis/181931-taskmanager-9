@@ -1,7 +1,11 @@
 'use strict';
 
-const menuBlock = `
-  <section class="control__btn-wrap">
+const renderTemplate = (container, template, place) => {
+  container.insertAdjacentHTML(place, template);
+};
+
+const getMenuTemplate = () => {
+  return `<section class="control__btn-wrap">
     <input
       type="radio"
       name="control"
@@ -28,11 +32,11 @@ const menuBlock = `
     <label for="control__statistic" class="control__label"
       >STATISTICS</label
     >
-  </section>
-`;
+  </section>`;
+};
 
-const searchBlock = `
-  <section class="main__search search container">
+const getLoadSearchTemplate = () => {
+  return `<section class="main__search search container">
     <input
       type="text"
       id="search__input"
@@ -40,11 +44,11 @@ const searchBlock = `
       placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE"
     />
     <label class="visually-hidden" for="search__input">Search</label>
-  </section>
-`;
+  </section>`;
+};
 
-const filterBlock = `
-  <section class="main__filter filter container">
+const getLoadFilterTemplate = () => {
+  return `<section class="main__filter filter container">
     <input
       type="radio"
       id="filter__all"
@@ -111,11 +115,11 @@ const filterBlock = `
     <label for="filter__archive" class="filter__label"
       >Archive <span class="filter__archive-count">115</span></label
     >
-  </section>
-`;
+  </section>`;
+};
 
-const tasksContainer = `
-  <section class="board container">
+const getLoadTasksContainerTemplate = () => {
+  return `<section class="board container">
     <div class="board__filter-list">
       <a href="#" class="board__filter">SORT BY DEFAULT</a>
       <a href="#" class="board__filter">SORT BY DATE up</a>
@@ -123,12 +127,12 @@ const tasksContainer = `
     </div>
 
     <div class="board__tasks"></div>
-  </section>
-`;
+  </section>`;
+};
 
 
-const taskItem = `
-  <article class="card card--black">
+const getLoadTaskItemTemplate = () => {
+  return `<article class="card card--black">
     <div class="card__form">
       <div class="card__inner">
         <div class="card__control">
@@ -192,11 +196,11 @@ const taskItem = `
         </div>
       </div>
     </div>
-  </article>
-`;
+  </article>`;
+};
 
-const addTask = `
-  <article class="card card--edit card--black">
+const getLoadAddTaskTemplate = () => {
+  return `<article class="card card--edit card--black">
     <form class="card__form" method="get">
       <div class="card__inner">
         <div class="card__control">
@@ -416,22 +420,23 @@ const addTask = `
         </div>
       </div>
     </form>
-  </article>
-`;
+  </article>`;
+};
 
-const loadMoreBtn = `
-  <button class="load-more" type="button">load more</button>
-`;
+const getLoadMoreBtnTemplate = () => {
+  return `<button class="load-more" type="button">load more</button>`;
+};
 
-let mainControl = document.querySelector(`.main__control`);
-mainControl.insertAdjacentHTML(`afterend`, filterBlock);
-mainControl.insertAdjacentHTML(`beforeend`, menuBlock);
-mainControl.insertAdjacentHTML(`afterend`, searchBlock);
+const mainControl = document.querySelector(`.main__control`);
+const tasksLayout = document.querySelector(`.main`);
 
-let tasksLayout = document.querySelector(`main`);
-tasksLayout.insertAdjacentHTML(`beforeend`, tasksContainer);
+renderTemplate(mainControl, getMenuTemplate(), `beforeend`);
+renderTemplate(tasksLayout, getLoadSearchTemplate(), `beforeend`);
+renderTemplate(tasksLayout, getLoadFilterTemplate(), `beforeend`);
+renderTemplate(tasksLayout, getLoadTasksContainerTemplate(), `beforeend`);
 
-let board = document.querySelector(`.board__tasks`);
-board.insertAdjacentHTML(`afterbegin`, taskItem.repeat(3));
-board.insertAdjacentHTML(`afterbegin`, addTask);
-board.insertAdjacentHTML(`beforeend`, loadMoreBtn);
+const board = document.querySelector(`.board__tasks`);
+
+renderTemplate(board, getLoadAddTaskTemplate(), `beforeend`);
+renderTemplate(board, getLoadTaskItemTemplate(), `beforeend`);
+renderTemplate(board, getLoadMoreBtnTemplate(), `beforeend`);
