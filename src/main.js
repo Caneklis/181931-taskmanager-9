@@ -1,4 +1,7 @@
 import {
+  renderTemplate
+} from './utils';
+import {
   getMenuTemplate
 } from "./components/menu-template";
 import {
@@ -20,20 +23,16 @@ import {
   getLoadMoreBtnTemplate
 } from "./components/task-btn-template";
 
-const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const mainControl = document.querySelector(`.main__control`);
 const tasksLayout = document.querySelector(`.main`);
 
-renderTemplate(mainControl, getMenuTemplate(), `beforeend`);
-renderTemplate(tasksLayout, getLoadSearchTemplate(), `beforeend`);
-renderTemplate(tasksLayout, getLoadFilterTemplate(), `beforeend`);
-renderTemplate(tasksLayout, getLoadTasksContainerTemplate(), `beforeend`);
+renderTemplate(mainControl, getMenuTemplate());
+renderTemplate(tasksLayout, getLoadSearchTemplate());
+renderTemplate(tasksLayout, getLoadFilterTemplate());
+renderTemplate(tasksLayout, getLoadTasksContainerTemplate());
 
 const board = document.querySelector(`.board__tasks`);
 
-renderTemplate(board, getLoadAddTaskTemplate(), `beforeend`);
-renderTemplate(board, getLoadTaskItemTemplate().repeat(3), `beforeend`);
-renderTemplate(board, getLoadMoreBtnTemplate(), `beforeend`);
+renderTemplate(board, getLoadAddTaskTemplate());
+renderTemplate(board, getLoadTaskItemTemplate().repeat(3));
+renderTemplate(board, getLoadMoreBtnTemplate());
