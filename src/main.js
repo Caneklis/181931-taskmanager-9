@@ -1,6 +1,6 @@
 import {
   renderTemplate
-} from './utils';
+} from "./utils";
 import {
   getMenuTemplate
 } from "./components/menu-template";
@@ -22,7 +22,9 @@ import {
 import {
   getLoadMoreBtnTemplate
 } from "./components/task-btn-template";
-
+import {
+  getTaskData
+} from "./data";
 const mainControl = document.querySelector(`.main__control`);
 const tasksLayout = document.querySelector(`.main`);
 
@@ -33,6 +35,12 @@ renderTemplate(tasksLayout, getLoadTasksContainerTemplate());
 
 const board = document.querySelector(`.board__tasks`);
 
+const TASK_COUNT = 8;
+
 renderTemplate(board, getLoadAddTaskTemplate());
-renderTemplate(board, getLoadTaskItemTemplate().repeat(3));
+renderTemplate(board, new Array(TASK_COUNT)
+  .fill(``)
+  .map(getTaskData)
+  .map(getLoadTaskItemTemplate)
+  .join(``));
 renderTemplate(board, getLoadMoreBtnTemplate());
