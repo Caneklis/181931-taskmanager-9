@@ -1,3 +1,9 @@
+import {
+  getRandomElement,
+} from './utils';
+
+export const TASK_COUNT = 8;
+
 const description = [
   `Изучить теорию`,
   `Сделать домашку`,
@@ -18,11 +24,9 @@ const tagsName = new Set([`homework`, `theory`, `practice`, `intensive`, `keks`]
 
 const colors = [`black`, `yellow`, `blue`, `green`, `pink`];
 
-const filterTitles = [`All`, `Overdue`, `Today`, `Favorites`, `Repeating`];
-
 export const getTaskData = () => ({
-  description: description[Math.floor(Math.random() * description.length)],
-  dueDate: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
+  description: getRandomElement(description),
+  dueDate: Date.now() + (-8 + Math.ceil(Math.random() * 15)) * 24 * 60 * 60 * 1000,
   repeatingDays: days,
   tags: tagsName,
   color: colors[Math.floor(Math.random() * 5)],
@@ -30,7 +34,34 @@ export const getTaskData = () => ({
   isArchive: Boolean(Math.round(Math.random()))
 });
 
-export const getFilterData = () => ({
-  title: filterTitles,
-  count: {}
-});
+export const tasks = Array.from(Array(TASK_COUNT)).map(getTaskData);
+
+export const filters = [{
+  title: `all`,
+  count: tasks.length,
+},
+{
+  title: `overdue`,
+  count: tasks.filter((it) => it.dueDate < Date.now()).length,
+},
+{
+  title: `today`,
+  count: tasks.filter((it) => new Date(it.dueDate).toDateString() === new Date().toDateString()).length,
+},
+{
+  title: `favorites`,
+  count: tasks.filter((it) => it.isFavorite).length,
+},
+{
+  title: `repeating`,
+  count: tasks.filter((it) => Object.keys(it.repeatingDays).some((day) => it.repeatingDays[day])).length,
+},
+{
+  title: `tags`,
+  count: tasks.filter((it) => it.tags).length,
+},
+{
+  title: `archive`,
+  count: tasks.filter((it) => it.isArchive).length,
+}
+];
